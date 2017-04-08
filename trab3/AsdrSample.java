@@ -16,39 +16,40 @@ public class AsdrSample {
   public static final int FUNC = 310;
   public static final int BOOLEAN = 311;
 
-    public static final String tokenList[] = {"IDENT",
-											  "NUM",
-											  "WHILE",
-											  "IF",
-									          "INT",
-									          "BOOL",
-									          "DOUBLE",
-                                              "ELSE",
-						"VOID", "FUNC", "BOOLEAN"  };
+  public static final String tokenList[] = {
+    "IDENT",
+		"NUM",
+		"WHILE",
+		"IF",
+		"INT",
+		"BOOL",
+		"DOUBLE",
+    "ELSE",
+		"VOID",
+    "FUNC",
+    "BOOLEAN"
+  };
 
   /* referencia ao objeto Scanner gerado pelo JFLEX */
-  private Yylex lexer;
-
   public ParserVal yylval;
-
+  private Yylex lexer;
   private static int laToken;
   private boolean debug;
 
-
   /* construtor da classe */
   public AsdrSample (Reader r) {
-      lexer = new Yylex (r, this);
+    lexer = new Yylex (r, this);
   }
 
   private void Prog() {
-
-     if ( laToken == INT || laToken == DOUBLE || laToken == '{'  ) {
-            if (debug) System.out.println("Prog --> Decl Bloco");
-     		LDecl();
-     		ListaFuncoes();
-     }
-     else yyerror("Esperado: int, double ou {");
+    if (laToken == INT || laToken == DOUBLE || laToken == BOOLEAN || laToken == '{') {
+      if (debug) System.out.println("Prog --> Decl  ListaFuncoes");
+      Decl();
+      ListaFuncoes();
+    } else {
+      yyerror("Esperado: int, double, boolean ou {");
     }
+  }
 
   private void ListaFuncoes() {
 
@@ -60,7 +61,7 @@ public class AsdrSample {
       verifica(IDENT);
       verifica('(');
       if (laToken != ')') {
-	ListaParametros();
+	       ListaParametros();
       }
       verifica(')');
       Bloco();
@@ -75,21 +76,17 @@ public class AsdrSample {
     verifica(IDENT);
   }
 
-  private void LDecl() {
-     if (laToken == INT || laToken == DOUBLE ) {
-     		if (debug) System.out.println("LDecl --> Decl LDecl");
-            Decl();
-     		LDecl();
-     } else {
-             if (debug) System.out.println("LDecl -->       // prod. vazia");
-            }
-  }
-
   private void Decl() {
-	 if (debug) System.out.println("Decl --> Tipo ListaID ;");
-	 Tipo();
-     ListaID();
-	 verifica(';');
+	  if (debug) System.out.println("Tipo LId ';'  Decl");
+
+    if (laToken == INT || laToken == DOUBLE || laToken == BOOLEAN) {
+      Tipo();
+      LId();
+   	  verifica(';');
+      Decl();
+    } else {
+      if (debug) System.out.println("Decl --> // prod. vazia");
+    }
   }
 
   private void ListaID(){
