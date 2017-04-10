@@ -32,7 +32,7 @@ WHITE_SPACE_CHAR=[\n\r\ \t\b\012]
 "else"		{ return AsdrSample.ELSE; }
 "void"		{ return AsdrSample.VOID; }
 "function"      { return AsdrSample.FUNC; }
-"true"|"false"  { return AsdrSample.BOOLEAN; }
+"bool"  { return AsdrSample.BOOLEAN; }
 
 [:jletter:][:jletterdigit:]* { return AsdrSample.IDENT; }
 
@@ -46,6 +46,7 @@ WHITE_SPACE_CHAR=[\n\r\ \t\b\012]
 "(" |
 ")" |
 "+" |
+"*" |
 "="    	{ return yytext().charAt(0); }
 
 

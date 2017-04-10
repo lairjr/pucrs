@@ -99,7 +99,7 @@ public class AsdrSample {
     private void ListaFuncoes() {
         if (laToken == FUNC) {
             if (debug) System.out.println("ListaFuncoes --> umaFuncao ListaFuncoes");
-            umaFuncao()
+            umaFuncao();
             ListaFuncoes();
         } else {
             if (debug) System.out.println("ListaFuncoes --> // prod. vazia");
@@ -255,8 +255,8 @@ public class AsdrSample {
 
     private void E() {
         if (laToken == IDENT || laToken == NUM || laToken == '(') {
-            if (debug) System.out.println("E --> F RestoE");
-            F();
+            if (debug) System.out.println("E --> T RestoE");
+            T();
             RestoE();
         }
     }
@@ -267,21 +267,29 @@ public class AsdrSample {
             verifica('+');
             F();
             RestoE();
-        } else if (laToken == '*') {
-            T();
         } else {
             if (debug) System.out.println("RestoE --> // prod. vazia");
         }
     }
 
     private void T() {
-        if (laToken == '*') {
-            if (debug) System.out.println("T --> * F T");
-            vefirica('*');
+        if (laToken == IDENT || laToken == NUM || laToken == '(') {
+            if (debug) System.out.println("T --> F RestoT");
             F();
-            T();
+            RestoT();
         } else {
             if (debug) System.out.println("T --> // prod. vazia");
+        }
+    }
+
+    private void RestoT() {
+        if (laToken == '*') {
+            if (debug) System.out.println("RestoT --> * F RestoT");
+            verifica('*');
+            F();
+            RestoT();
+        } else {
+            if (debug) System.out.println("RestoT --> // prod. vazia");
         }
     }
 
@@ -317,7 +325,7 @@ public class AsdrSample {
                      ? new Character((char)laToken).toString()
                      : tokenList[laToken-BASE_TOKEN_NUM]);
 
-            yyerror( "esperado token : " + expStr +
+            yyerror( "esperado token " + expStr +
                      " na entrada: " + laStr);
         }
     }

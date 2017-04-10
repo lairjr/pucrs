@@ -1,5 +1,4 @@
 $TRACE_ON
-
-{ a = 34;}
-
-
+    int a, b;
+    function bool one () { a = b; }
+    function bool two () { a = b; }

@@ -1,5 +1,2 @@
 $TRACE_ON
-
     int a, b;
-   
-
