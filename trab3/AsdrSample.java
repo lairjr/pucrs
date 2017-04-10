@@ -1,50 +1,6 @@
 import java.io.*;
 
-/*****  Nova gramática
-
-    Prog --> Decl  ListaFuncoes
-
-    Decl --> Tipo LId ';'  Decl
- |     //produção vazia
-
-    Tipo --> int | double |boolean
-
-   LId -->  LId ',' IDENT
- | IDENT
-
-   ListaFuncoes --> umaFuncao ListaFuncoes
- |  umaFuncao
-
-   umaFuncao --> FUNC tipoOuVoid IDENT () Bloco
- | FUNC tipoOuVoid IDENT ( ListaParametros ) Bloco
-
-   tipoOuVoid --> VOID | Tipo
-
-   ListaParametros --> Tipo IDENT
- | Tipo IDENT , ListaParametros
-
-   Bloco -->  '{' LCmd '}'
-
-   LCmd -->  Cmd LCmdo
- |     //produção vazia
-
-   Cmd --> Bloco
- | if E Cmd
- | if E Cmd else Cmd
- | while E Cmd
- | IDENT '=' E ';'
-
-   E --> E + T
- | T
-
-   T --> T * F
- | F
-
-   F --> NUM
- | IDENT
- | '(' E ')'
-
- ****/
+/* Autor: Lair Junior */
 
 public class AsdrSample {
 
