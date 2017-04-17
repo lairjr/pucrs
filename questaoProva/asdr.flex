@@ -18,6 +18,8 @@
 %char
 
 WHITE_SPACE_CHAR=[\n\r\ \t\b\012]
+InputCharacter = [^\r\n]
+LineTerminator = \r|\n|\r\n
 
 %%
 
@@ -38,6 +40,7 @@ WHITE_SPACE_CHAR=[\n\r\ \t\b\012]
 "(" |
 ")" { return yytext().charAt(0); }
 
+"#"{InputCharacter}*{LineTerminator} { }
 
 {WHITE_SPACE_CHAR}+ { }
 
