@@ -14,15 +14,9 @@ public class Asdr {
     public static final String tokenList[] = {
         "IDENT",
         "NUM",
-        "WHILE",
-        "IF",
-        "INT",
-        "BOOL",
-        "DOUBLE",
-        "ELSE",
-        "VOID",
-        "FUNC",
-        "BOOLEAN"
+        "MATR",
+        "DATA",
+        "PROVA",
     };
 
 /* referencia ao objeto Scanner gerado pelo JFLEX */
@@ -32,234 +26,67 @@ public class Asdr {
     private boolean debug;
 
 /* construtor da classe */
-    public Asdr (Reader r) {
+    public Asdr(Reader r) {
         lexer = new Yylex (r, this);
     }
 
-    // private void Prog() {
-    //     if (laToken == INT || laToken == DOUBLE || laToken == BOOLEAN || laToken == '{') {
-    //         if (debug) System.out.println("Prog --> Decl  ListaFuncoes");
-    //         Decl();
-    //         ListaFuncoes();
-    //     } else {
-    //         yyerror("Esperado: int, double, boolean ou {");
-    //     }
-    // }
-    //
-    // private void ListaFuncoes() {
-    //     if (laToken == FUNC) {
-    //         if (debug) System.out.println("ListaFuncoes --> umaFuncao ListaFuncoes");
-    //         umaFuncao();
-    //         ListaFuncoes();
-    //     } else {
-    //         if (debug) System.out.println("ListaFuncoes --> // prod. vazia");
-    //     }
-    // }
-    //
-    // private void umaFuncao () {
-    //     verifica(FUNC);
-    //     tipoOuVoid();
-    //     verifica(IDENT);
-    //     verifica('(');
-    //     if (laToken != ')') {
-    //         ListaParametros();
-    //     }
-    //     verifica(')');
-    //     Bloco();
-    // }
-    //
-    // private void tipoOuVoid() {
-    //     if (laToken == VOID) {
-    //         if (debug) System.out.println("tipoOuVoid --> void");
-    //         verifica(VOID);
-    //     } else if (laToken == INT || laToken == DOUBLE || laToken == BOOLEAN) {
-    //         if (debug) System.out.println("tipoOuVoid --> Tipo");
-    //         Tipo();
-    //     } else {
-    //         yyerror("Esperado: void, int, double, boolean");
-    //     }
-    // }
-    //
-    // private void ListaParametros() {
-    //     if (debug) System.out.println("ListaParametros --> Tipo IDENT RestoListaParametros");
-    //     Tipo();
-    //     verifica(IDENT);
-    //     RestoListaParametros();
-    // }
-    //
-    // private void RestoListaParametros() {
-    //     if (laToken == ',') {
-    //         if (debug) System.out.println("RestoListaParametros --> , Tipo IDENT RestoListaParametros");
-    //         verifica(',');
-    //         Tipo();
-    //         verifica(IDENT);
-    //         RestoListaParametros();
-    //     } else {
-    //         if (debug) System.out.println("RestoListaParametros --> // prod. vazia");
-    //     }
-    // }
-    //
-    // private void Decl() {
-    //     if (laToken == INT || laToken == DOUBLE || laToken == BOOLEAN) {
-    //         if (debug) System.out.println("Tipo LId ';'  Decl");
-    //         Tipo();
-    //         LId();
-    //         verifica(';');
-    //         Decl();
-    //     } else {
-    //         if (debug) System.out.println("Decl --> // prod. vazia");
-    //     }
-    // }
-    //
-    // private void LId(){
-    //     if (debug) System.out.println("LId -->  IDENT  RestoLID");
-    //     verifica(IDENT);
-    //     RestoLID();
-    // }
-    //
-    // private void RestoLID() {
-    //     if (laToken == ',' ) {
-    //         if (debug) System.out.println("RestoLId --> , IDENT RestoLID");
-    //         verifica(',');
-    //         verifica(IDENT);
-    //         RestoLID();
-    //     } else {
-    //         if (debug) System.out.println("RestoLId --> vazio");
-    //     }
-    // }
-    //
-    // private void Tipo() {
-    //     if (laToken == INT) {
-    //         if (debug) System.out.println("Tipo --> int");
-    //         verifica(INT);
-    //     } else if (laToken == DOUBLE) {
-    //         if (debug) System.out.println("Tipo --> double");
-    //         verifica(DOUBLE);
-    //     } else if (laToken == BOOLEAN) {
-    //         if (debug) System.out.println("Tipo --> boolean");
-    //         verifica(BOOLEAN);
-    //     } else {
-    //         yyerror("Esperado: int, double, boolean");
-    //     }
-    // }
-    //
-    // private void Bloco() {
-    //     if (debug) System.out.println("Bloco --> { Cmd }");
-    //
-    //     verifica('{');
-    //     LCmd();
-    //     verifica('}');
-    // }
-    //
-    // private void LCmd() {
-    //     if (laToken == '{' || laToken == WHILE || laToken == IDENT || laToken == IF) {
-    //         if (debug) System.out.println("LCmd --> Cmd LCmd");
-    //         Cmd();
-    //         LCmd();
-    //     } else {
-    //         if (debug) System.out.println("LCmd --> // prod. vazia");
-    //     }
-    // }
-    //
-    // private void Cmd() {
-    //     if (laToken == '{') {
-    //         if (debug) System.out.println("Cmd --> Bloco");
-    //         Bloco();
-    //     }
-    //     else if (laToken == WHILE) {
-    //         if (debug) System.out.println("Cmd --> WHILE ( E ) Cmd");
-    //         verifica(WHILE);             // laToken = this.yylex();
-    //         verifica('(');
-    //         E();
-    //         verifica(')');
-    //         Cmd();
-    //     }
-    //     else if (laToken == IDENT) {
-    //         if (debug) System.out.println("Cmd --> ident = E ;");
-    //         verifica(IDENT);
-    //         verifica('=');
-    //         E();
-    //         verifica(';');
-    //     }
-    //     else if (laToken == IF) {
-    //         if (debug) System.out.println("Cmd --> if E Cmd RestoIF");
-    //         verifica(IF);
-    //         verifica('(');
-    //         E();
-    //         verifica(')');
-    //         Cmd();
-    //         RestoIF();
-    //     }
-    //     else yyerror("Esperado {, if, while ou identificador");
-    // }
-    //
-    // private void RestoIF() {
-    //     if (laToken == ELSE) {
-    //         if (debug) System.out.println("RestoIF --> else Cmd ");
-    //         verifica(ELSE);
-    //         Cmd();
-    //     } else {
-    //         if (debug) System.out.println("RestoIF -->     // producao vazia");
-    //     }
-    // }
-    //
-    // private void E() {
-    //     if (laToken == IDENT || laToken == NUM || laToken == '(') {
-    //         if (debug) System.out.println("E --> T RestoE");
-    //         T();
-    //         RestoE();
-    //     }
-    // }
-    //
-    // private void RestoE() {
-    //     if (laToken == '+') {
-    //         if (debug) System.out.println("RestoE --> + F RestoE");
-    //         verifica('+');
-    //         F();
-    //         RestoE();
-    //     } else {
-    //         if (debug) System.out.println("RestoE --> // prod. vazia");
-    //     }
-    // }
-    //
-    // private void T() {
-    //     if (laToken == IDENT || laToken == NUM || laToken == '(') {
-    //         if (debug) System.out.println("T --> F RestoT");
-    //         F();
-    //         RestoT();
-    //     } else {
-    //         if (debug) System.out.println("T --> // prod. vazia");
-    //     }
-    // }
-    //
-    // private void RestoT() {
-    //     if (laToken == '*') {
-    //         if (debug) System.out.println("RestoT --> * F RestoT");
-    //         verifica('*');
-    //         F();
-    //         RestoT();
-    //     } else {
-    //         if (debug) System.out.println("RestoT --> // prod. vazia");
-    //     }
-    // }
-    //
-    // private void F() {
-    //     if (laToken == IDENT) {
-    //         if (debug) System.out.println("F --> IDENT");
-    //         verifica(IDENT);
-    //     }
-    //     else if (laToken == NUM) {
-    //         if (debug) System.out.println("F --> NUM");
-    //         verifica(NUM);
-    //     }
-    //     else if (laToken == '(') {
-    //         if (debug) System.out.println("F --> ( F )");
-    //         verifica('(');
-    //         F();
-    //         verifica(')');
-    //     }
-    //     else yyerror("Esperado operando (, identificador ou numero");
-    // }
+    private void Arq() {
+        if (laToken == DATA) {
+            if (debug) System.out.println("Arq --> data CAB DADOS RestoArq");
+            verifica(DATA);
+            Cab();
+            Dados();
+            RestoArq();
+        } else {
+            yyerror("Esperado: data");
+        }
+    }
+
+    private void RestoArq() {
+        if (laToken == DATA) {
+            if (debug) System.out.println("RestoArq --> Arq");
+            Arq();
+        } else {
+            if (debug) System.out.println("RestoArq --> // prod. vazia");
+        }
+    }
+
+    private void Cab() {
+        if (laToken == PROVA) {
+            if (debug) System.out.println("CAB --> prova ident");
+            verifica(PROVA);
+            verifica(IDENT);
+        } else if (laToken == IDENT) {
+            if (debug) System.out.println("CAB --> ident ident");
+            verifica(IDENT);
+            verifica(IDENT);
+        } else {
+            yyerror("Esperado prova ou ident.");
+        }
+    }
+
+    private void Dados() {
+        if (laToken == '(') {
+            if (debug) System.out.println("DADOS --> ( MATR, NUM ) RestoDados");
+            verifica('(');
+            verifica(MATR);
+            verifica(',');
+            verifica(NUM);
+            verifica(')');
+            RestoDados();
+        } else {
+            yyerror("Esperado (");
+        }
+    }
+
+    private void RestoDados() {
+        if (laToken == '(') {
+            if (debug) System.out.println("RestoDados --> Dados ");
+            Dados();
+        } else {
+            if (debug) System.out.println("RestoDados --> //prod. vazia ");
+        }
+    }
 
     private void verifica(int expected) {
         if (laToken == expected)
@@ -293,12 +120,11 @@ public class Asdr {
     }
 
 /* metodo de manipulacao de erros de sintaxe */
-    public void yyerror (String error) {
+    public void yyerror(String error) {
         System.err.println("Erro: " + error);
         System.err.println("Entrada rejeitada");
         System.out.println("\n\nFalhou!!!");
         System.exit(1);
-
     }
 
     public void setDebug(boolean trace) {
