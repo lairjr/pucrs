@@ -1,9 +1,0 @@
-$TRACE_ON
-    int a, b;
-    function bool id (int x, bool has) {
-      while (has) {
-        if (has) {
-          res = x + 3 * 2;
-        }
-      }
-    }
