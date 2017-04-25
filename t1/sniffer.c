@@ -24,8 +24,20 @@
 unsigned char buff1[BUFFSIZE]; // buffer de recepcao
 int sockd;
 int on;
-int totalPackages = 0;
 struct ifreq ifr;
+
+void load_package()
+{
+		recv(sockd,(char *) &buff1, sizeof(buff1), 0x0);
+}
+
+void print_package()
+{
+		printf("MAC Destino: %x:%x:%x:%x:%x:%x \n", buff1[0],buff1[1],buff1[2],buff1[3],buff1[4],buff1[5]);
+		printf("MAC Origem:  %x:%x:%x:%x:%x:%x \n", buff1[6],buff1[7],buff1[8],buff1[9],buff1[10],buff1[11]);
+		printf("IP version %x:%x\n", buff1[12], buff1[13]);
+		printf("Protocolo %x\n", buff1[20]);
+}
 
 int main(int argc,char *argv[])
 {
@@ -47,12 +59,7 @@ int main(int argc,char *argv[])
 
 		// recepcao de pacotes
 		while (1) {
-				totalPackages++;
-				recv(sockd,(char *) &buff1, sizeof(buff1), 0x0);
-				// impress�o do conteudo - exemplo Endereco Destino e Endereco Origem
-				printf("MAC Destino: %x:%x:%x:%x:%x:%x \n", buff1[0],buff1[1],buff1[2],buff1[3],buff1[4],buff1[5]);
-				printf("MAC Origem:  %x:%x:%x:%x:%x:%x \n", buff1[6],buff1[7],buff1[8],buff1[9],buff1[10],buff1[11]);
-				printf("IP version %x:%x\n", buff1[12], buff1[13]);
-				printf("Protocolo %x\n", buff1[20]);
+				load_package();
+				print_package();
 		}
 }
