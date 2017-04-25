@@ -142,7 +142,7 @@ void print_protocol(packet_info info)
 {
 		if (info.ip_version == 0 || info.protocol == 0)
 		{
-				printf("Protocolo desconhecido");
+				printf("Protocolo desconhecido\n");
 				return;
 		}
 
@@ -173,6 +173,83 @@ void print_protocol(packet_info info)
 		}
 
 		printf("Protocolo: %x (%s)\n", buff1[buff_position], name);
+}
+
+void print_arp()
+{
+		printf("Hardware Address Type: \n");
+		printf("Protocol Address Type: \n");
+		printf("Hardware Address Length: \n");
+		printf("Protocol Address Length: \n");
+		printf("Operation: \n");
+		printf("Source Hardware Address: \n");
+		printf("Source Protocol Address: \n");
+		printf("Target Hardware Address: \n");
+		printf("Target Protocol Address: \n");
+}
+
+void print_udp()
+{
+		printf("Source port: \n");
+		printf("Destination port: \n");
+		printf("Length: \n");
+		printf("Checksum: \n");
+}
+
+void print_tcp()
+{
+		printf("Source port: \n");
+		printf("Destination port: \n");
+		printf("Seq. Number: \n");
+		printf("Ack. Number: \n");
+		printf("Offset: \n");
+		printf("Reserved: \n");
+		printf("Flags: \n");
+		printf("Window: \n");
+		printf("Checksum: \n");
+		printf("Urgent point: \n");
+}
+
+void print_icmp()
+{
+		printf("Type: \n");
+		printf("Code: \n");
+		printf("Checksum: \n");
+}
+
+void print_icmpv6()
+{
+		printf("Type: \n");
+		printf("Code: \n");
+		printf("Checksum: \n");
+}
+
+void print_package_content(int protocol)
+{
+		if (protocol == 0)
+		{
+				printf("Corpo de pacote desconhecido\n");
+				return;
+		}
+		printf("\n---- CORPO DO PACOTE ----\n");
+		switch (protocol) {
+		case ARP:
+				print_arp();
+				break;
+		case UDP:
+				print_udp();
+				break;
+		case ICMP:
+				print_icmp();
+				break;
+		case TCP:
+				print_tcp();
+				break;
+		case ICMPv6:
+				print_icmpv6();
+				break;
+		}
+		printf("---- FIM DO CORPO ----\n");
 }
 
 void print_summary()
@@ -207,6 +284,7 @@ int main(int argc,char *argv[])
 				packet_info info = indentify_package();
 				accumulate_values(info);
 				print_protocol(info);
+				print_package_content(info.protocol);
 				print_summary();
 		}
 }
