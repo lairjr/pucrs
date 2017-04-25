@@ -25,8 +25,21 @@
 #define HEX86 0x86
 #define HEX3a 0x3a
 
+#define IPv6 1
+#define IPv4 2
+#define ARP 3
+#define ICMP 4
+#define ICMPv6 5
+#define UDP 6
+#define TCP 7
+
 // Atencao!! Confira no /usr/include do seu sisop o nome correto
 // das estruturas de dados dos protocolos.
+
+typedef struct packet_info {
+		int ip_version;
+		int protocol;
+} packet_info;
 
 unsigned char buff1[BUFFSIZE]; // buffer de recepcao
 int sockd;
@@ -34,25 +47,81 @@ int on;
 struct ifreq ifr;
 int ipv6_counter, ipv4_counter, arp_counter, icmp_counter, icmpv6_counter, udp_counter, tcp_counter = 0;
 
-void indentify_package()
-{
-		if (buff1[13] == HEX06) {
-				arp_counter++;
-		}
+int get_ip_version() {
 		if (buff1[12] == HEX86) {
-				ipv6_counter++;
-				if (buff1[20] == HEX3a) {
-						icmpv6_counter++;
-				}
+				return IPv6;
 		} else if (buff1[12] == HEX08) {
-				ipv4_counter++;
-				if (buff1[23] == HEX11) {
-						udp_counter++;
+				return IPv4;
+		}
+		return 0;
+}
+
+int get_protocol(int ip_version) {
+		switch (ip_version) {
+		case IPv4:
+				if (buff1[13] == HEX06) {
+						return ARP;
+				} else if (buff1[23] == HEX11) {
+						return UDP;
 				} else if (buff1[23] == HEX06) {
-						tcp_counter++;
+						return TCP;
 				} else if (buff1[23] == HEX01) {
-						icmp_counter++;
+						return ICMP;
 				}
+
+				return 0;
+		case IPv6:
+				if (buff1[13] == HEX06) {
+						return ARP;
+				} else if (buff1[20] == HEX3a) {
+						return ICMPv6;
+				}
+				return 0;
+		default:
+				return 0;
+		}
+}
+
+packet_info indentify_package()
+{
+		packet_info info;
+		info.ip_version = get_ip_version();
+		info.protocol = get_protocol(info.ip_version);
+
+		return info;
+}
+
+void accumulate_values(packet_info info)
+{
+		switch (info.ip_version) {
+		case IPv4:
+				ipv4_counter++;
+				break;
+		case IPv6:
+				ipv6_counter++;
+				break;
+		default:
+				break;
+		}
+
+		switch (info.protocol) {
+		case ARP:
+				arp_counter++;
+				break;
+		case ICMP:
+				icmp_counter++;
+				break;
+		case ICMPv6:
+				icmpv6_counter++;
+				break;
+		case UDP:
+				udp_counter++;
+				break;
+		case TCP:
+				tcp_counter++;
+				break;
+		default:
+				break;
 		}
 }
 
@@ -61,18 +130,55 @@ void load_package()
 		recv(sockd,(char *) &buff1, sizeof(buff1), 0x0);
 }
 
-void print_package()
+void print_ethernet_header()
 {
+		printf("---- HEADER ----\n");
 		printf("MAC Destino: %x:%x:%x:%x:%x:%x \n", buff1[0],buff1[1],buff1[2],buff1[3],buff1[4],buff1[5]);
 		printf("MAC Origem:  %x:%x:%x:%x:%x:%x \n", buff1[6],buff1[7],buff1[8],buff1[9],buff1[10],buff1[11]);
-		printf("IP version %x:%x\n", buff1[12], buff1[13]);
-		printf("Protocolo %x\n", buff1[22]);
+		printf("Tipo: %x:%x\n", buff1[12], buff1[13]);
+}
+
+void print_protocol(packet_info info)
+{
+		if (info.ip_version == 0 || info.protocol == 0)
+		{
+				printf("Protocolo desconhecido");
+				return;
+		}
+
+		char name[10] = "";
+		int buff_position = 0;
+
+		switch (info.protocol) {
+		case ARP:
+				strncpy(name, "ARP", 6);
+				buff_position = 13;
+				break;
+		case UDP:
+				strncpy(name, "UDP", 6);
+				buff_position = 23;
+				break;
+		case ICMP:
+				strncpy(name, "ICMP", 6);
+				buff_position = 23;
+				break;
+		case TCP:
+				strncpy(name, "TCP", 6);
+				buff_position = 23;
+				break;
+		case ICMPv6:
+				strncpy(name, "ICMPv6", 6);
+				buff_position = 20;
+				break;
+		}
+
+		printf("Protocolo: %x (%s)\n", buff1[buff_position], name);
 }
 
 void print_summary()
 {
 		printf("\nTotal packages\n");
-		printf("IPv4: %d | IPv6: %d | ARP: %d | ICMP: %d | ICMPv6: %d | UDP: %d | TCP: %d\n",
+		printf("IPv4: %d | IPv6: %d | ARP: %d | ICMP: %d | ICMPv6: %d | UDP: %d | TCP: %d\n\n",
 		       ipv4_counter, ipv6_counter, arp_counter, icmp_counter, icmpv6_counter, udp_counter, tcp_counter);
 }
 
@@ -97,8 +203,10 @@ int main(int argc,char *argv[])
 		// recepcao de pacotes
 		while (1) {
 				load_package();
-				print_package();
-				indentify_package();
+				print_ethernet_header();
+				packet_info info = indentify_package();
+				accumulate_values(info);
+				print_protocol(info);
 				print_summary();
 		}
 }
