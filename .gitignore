@@ -2,3 +2,4 @@ trab3/Yylex.*
 trab3/*.class
 questaoProva/Yylex.*
 questaoProva/*.class
+**/.vagrant/*
