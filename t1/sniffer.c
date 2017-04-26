@@ -177,44 +177,42 @@ void print_protocol(packet_info info)
 
 void print_arp()
 {
-		printf("Hardware Address Type: \n");
-		printf("Protocol Address Type: \n");
-		printf("Hardware Address Length: \n");
-		printf("Protocol Address Length: \n");
-		printf("Operation: \n");
-		printf("Source Hardware Address: \n");
-		printf("Source Protocol Address: \n");
-		printf("Target Hardware Address: \n");
-		printf("Target Protocol Address: \n");
+		printf("Hardware Address Type: %x %x ()\n", buff1[14], buff1[15]);
+		printf("Protocol Address Type: %x %x ()\n", buff1[16], buff1[17]);
+		printf("Hardware Address Length: %x\n", buff1[18]);
+		printf("Protocol Address Length: %x\n", buff1[19]);
+		printf("Operation: %x %x ()\n", buff1[20], buff1[21]);
+		printf("Source Hardware Address: %x %x %x %x %x %x ()\n", buff1[22], buff1[23], buff1[24], buff1[25], buff1[26], buff1[27]);
+		printf("Source Protocol Address: %x %x %x %x ()\n", buff1[28], buff1[29], buff1[30], buff1[31]);
+		printf("Target Hardware Address: %x %x %x %x %x %x ()\n", buff1[32], buff1[33], buff1[34], buff1[35], buff1[36], buff1[37]);
+		printf("Target Protocol Address: %x %x %x %x ()\n", buff1[38], buff1[39], buff1[40], buff1[41]);
 }
 
 void print_udp()
 {
-		printf("Source port: \n");
-		printf("Destination port: \n");
-		printf("Length: \n");
-		printf("Checksum: \n");
+		printf("Source port: %x %x ()\n", buff1[34], buff1[35]);
+		printf("Destination port: %x %x ()\n", buff1[36], buff1[37]);
+		printf("Length: %x %x ()\n", buff1[38], buff1[39]);
+		printf("Checksum: %x %x\n", buff1[40], buff1[41]);
 }
 
 void print_tcp()
 {
-		printf("Source port: \n");
-		printf("Destination port: \n");
-		printf("Seq. Number: \n");
-		printf("Ack. Number: \n");
-		printf("Offset: \n");
-		printf("Reserved: \n");
-		printf("Flags: \n");
-		printf("Window: \n");
-		printf("Checksum: \n");
-		printf("Urgent point: \n");
+		printf("Source port: %x %x (%d)\n", buff1[34], buff1[35], buff1[34] + buff1[35]);
+		printf("Destination port: %x %x ()\n", buff1[36], buff1[37]);
+		printf("Seq. Number: %x %x %x %x ()\n", buff1[38], buff1[39], buff1[40], buff1[41]);
+		printf("Ack. Number: %x %x %x %x ()\n", buff1[42], buff1[43], buff1[44], buff1[45]);
+		printf("Flags: %x %x\n", buff1[46], buff1[47]);
+		printf("Window: %x %x\n", buff1[48], buff1[49]);
+		printf("Checksum: %x %x\n", buff1[50], buff1[51]);
+		printf("Urgent point: %x %x\n", buff1[52], buff1[53]);
 }
 
 void print_icmp()
 {
-		printf("Type: \n");
-		printf("Code: \n");
-		printf("Checksum: \n");
+		printf("Type: %x ()\n", buff1[34]);
+		printf("Code: %x ()\n", buff1[35]);
+		printf("Checksum: %x %x\n", buff1[36], buff1[37]);
 }
 
 void print_icmpv6()
@@ -231,7 +229,7 @@ void print_package_content(int protocol)
 				printf("Corpo de pacote desconhecido\n");
 				return;
 		}
-		printf("\n---- CORPO DO PACOTE ----\n");
+		printf("---- CORPO DO PACOTE ----\n");
 		switch (protocol) {
 		case ARP:
 				print_arp();
@@ -259,7 +257,7 @@ void print_summary()
 		       ipv4_counter, ipv6_counter, arp_counter, icmp_counter, icmpv6_counter, udp_counter, tcp_counter);
 }
 
-int main(int argc,char *argv[])
+int main(int argc, char *argv[])
 {
 		/* Criacao do socket. Todos os pacotes devem ser construidos a partir do protocolo Ethernet. */
 		/* De um "man" para ver os parametros.*/
