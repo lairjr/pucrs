@@ -1,3 +1,0 @@
-$TRACE_ON
-    int a, b;
-    function bool id () { a = b; }
