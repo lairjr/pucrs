@@ -1,7 +1,3 @@
-FROM java:7
+FROM java:latest
 
-ADD /jflex-1.6.1 /jflex-1.6.1
-
-ENV PATH "$PATH:/jflex-1.6.1/bin"
-
-WORKDIR "/compiladores"
+RUN apt-get install -y jflex byacc-j
