@@ -2,12 +2,14 @@
   import java.io.*;
 %}
 
-%token ID
+%token ID, INT, FLOAT
 
 %%
 
-L : ID
-  | ID ',' L
+D : T ID ';'
+  ;
+T : INT
+  | FLOAT
   ;
 
 %%

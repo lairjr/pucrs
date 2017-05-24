@@ -14,9 +14,12 @@
 NL  = \n | \r | \r\n
 
 %%
+"int" { return Parser.INT; }
+"float" { return Parser.FLOAT; }
+
 [a-zA-Z][a-zA-Z_0-9]* { return Parser.ID; }
 
-"," { return (int) yycharat(0); }
+";" { return (int) yycharat(0); }
 
 [ \t]+ { }
 {NL}+  { }
