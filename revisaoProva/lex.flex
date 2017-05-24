@@ -14,15 +14,9 @@
 NL  = \n | \r | \r\n
 
 %%
+[a-zA-Z][a-zA-Z_0-9]* { return Parser.ID; }
 
-"a" |
-"b" |
-"c" |
-"v" |
-"x" |
-"(" |
-")" |
-"+"     { return (int) yycharat(0); }
+"," { return (int) yycharat(0); }
 
 [ \t]+ { }
 {NL}+  { }

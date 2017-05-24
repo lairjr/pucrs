@@ -2,18 +2,12 @@
   import java.io.*;
 %}
 
+%token ID
+
 %%
 
-S : A B
-  | S A B
-  ;
-
-A : 'a'
-  | 'a' 'a' 'b'
-  ;
-
-B : 'b'
-  | 'b' 'b' 'a'
+L : ID
+  | ID ',' L
   ;
 
 %%
