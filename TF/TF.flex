@@ -16,6 +16,11 @@ NL  = \n | \r | \r\n
 %%
 
 "class" { return Parser.CLASS; }
+"public" { return Parser.PUBLIC; }
+"static" { return Parser.STATIC; }
+"void" { return Parser.VOID; }
+"main" { return Parser.MAIN; }
+"String" { return Parser.STRING; }
 
 [a-zA-Z][a-zA-Z_0-9]* { return Parser.IDENTIFIER; }
 

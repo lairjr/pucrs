@@ -2,7 +2,7 @@
   import java.io.*;
 %}
 
-%token CLASS, IDENTIFIER
+%token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING
 
 %right '='
 %nonassoc '<'
@@ -17,7 +17,7 @@
 
 Goal : MainClass;
 
-MainClass : CLASS IDENTIFIER '{' '}'
+MainClass : CLASS IDENTIFIER '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' IDENTIFIER ')' '{' '}' '}'
 
 %%
   private Yylex lexer;
