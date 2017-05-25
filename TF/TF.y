@@ -2,7 +2,8 @@
   import java.io.*;
 %}
 
-%token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING, IF
+%token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING, IF, ELSE, WHILE
+%token PRINT
 
 %right '='
 %nonassoc '<'
@@ -20,12 +21,18 @@ Goal : MainClass;
 MainClass : CLASS IDENTIFIER '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' IDENTIFIER ')' '{' Statement '}' '}'
 
 Statement : '{' StatementR '}'
-          | IF
+          | IF '(' Expression ')' Statement ELSE Statement
+          | WHILE '(' Expression ')' Statement
+          | PRINT '(' Expression ')' ';'
+          | IDENTIFIER '=' Expression ';'
+          | IDENTIFIER '[' Expression ']' '=' Expression ';'
           ;
 
 StatementR : StatementR Statement
           |
           ;
+
+Expression : IDENTIFIER
 
 %%
   private Yylex lexer;

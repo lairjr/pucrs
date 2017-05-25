@@ -22,6 +22,9 @@ NL  = \n | \r | \r\n
 "main" { return Parser.MAIN; }
 "String" { return Parser.STRING; }
 "if" { return Parser.IF; }
+"else" { return Parser.ELSE; }
+"while" { return Parser.WHILE; }
+"System.out.println" { return Parser.PRINT; }
 
 [a-zA-Z][a-zA-Z_0-9]* { return Parser.IDENTIFIER; }
 
