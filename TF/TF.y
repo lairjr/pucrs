@@ -2,7 +2,7 @@
   import java.io.*;
 %}
 
-%token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING
+%token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING, IF
 
 %right '='
 %nonassoc '<'
@@ -17,7 +17,15 @@
 
 Goal : MainClass;
 
-MainClass : CLASS IDENTIFIER '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' IDENTIFIER ')' '{' '}' '}'
+MainClass : CLASS IDENTIFIER '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' IDENTIFIER ')' '{' Statement '}' '}'
+
+Statement : '{' StatementR '}'
+          | IF
+          ;
+
+StatementR : StatementR Statement
+          |
+          ;
 
 %%
   private Yylex lexer;

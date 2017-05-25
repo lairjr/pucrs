@@ -21,6 +21,7 @@ NL  = \n | \r | \r\n
 "void" { return Parser.VOID; }
 "main" { return Parser.MAIN; }
 "String" { return Parser.STRING; }
+"if" { return Parser.IF; }
 
 [a-zA-Z][a-zA-Z_0-9]* { return Parser.IDENTIFIER; }
 
