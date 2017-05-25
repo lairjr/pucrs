@@ -3,7 +3,7 @@
 %}
 
 %token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING, IF, ELSE, WHILE
-%token PRINT
+%token PRINT, AND, LENGTH, TRUE, FALSE, THIS, NEW, INT
 
 %right '='
 %nonassoc '<'
@@ -32,7 +32,17 @@ StatementR : StatementR Statement
           |
           ;
 
-Expression : IDENTIFIER
+Expression :  Expression '[' Expression ']'
+            | Expression '.' LENGTH
+            | TRUE
+            | FALSE
+            | IDENTIFIER
+            | THIS
+            | NEW INT '[' Expression ']'
+            | NEW IDENTIFIER '(' ')'
+            | '!' Expression
+            | '(' Expression ')'
+            ;
 
 %%
   private Yylex lexer;

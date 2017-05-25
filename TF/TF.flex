@@ -25,14 +25,18 @@ NL  = \n | \r | \r\n
 "else" { return Parser.ELSE; }
 "while" { return Parser.WHILE; }
 "System.out.println" { return Parser.PRINT; }
+"&&" { return Parser.AND; }
+"length" { return Parser.LENGTH; }
+"true" { return Parser.TRUE; }
+"false" { return Parser.FALSE; }
+"this" { return Parser.THIS; }
+"new" { return Parser.NEW; }
+"int" { return Parser.INT; }
 
 [a-zA-Z][a-zA-Z_0-9]* { return Parser.IDENTIFIER; }
 
 "!" |
 "=" |
-"<" |
-"-" |
-"*" |
 "." |
 ";" |
 "{" |
@@ -41,7 +45,10 @@ NL  = \n | \r | \r\n
 ")" |
 "[" |
 "]" |
-"+"     { return (int) yycharat(0); }
+"<" |
+"+" |
+"-" |
+"*" { return (int) yycharat(0); }
 
 [ \t]+ { }
 {NL}+  { }
