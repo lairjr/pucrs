@@ -1,0 +1,16 @@
+class Id {
+  public static void main(String [] args) {
+    {
+      b = b.id();
+      b = b.id(id2, id3);
+    }
+  }
+}
+
+class Pessoa {
+
+}
+
+class Pessoa2 extends Pessoa {
+
+}

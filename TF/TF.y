@@ -3,7 +3,7 @@
 %}
 
 %token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING, IF, ELSE, WHILE
-%token PRINT, AND, LENGTH, TRUE, FALSE, THIS, NEW, INT, INTEGER_LITERAL
+%token PRINT, AND, LENGTH, TRUE, FALSE, THIS, NEW, INT, INTEGER_LITERAL, EXTENDS
 
 %right '='
 %nonassoc '<'
@@ -16,7 +16,15 @@
 
 %%
 
-Goal : MainClass;
+Goal : MainClass ClassDeclarationR;
+
+ClassDeclaration:   CLASS IDENTIFIER EXTENDS IDENTIFIER '{' '}'
+                  | CLASS IDENTIFIER '{' '}'
+                  ;
+
+ClassDeclarationR:  ClassDeclaration ClassDeclarationR
+                  |
+                  ;
 
 MainClass : CLASS IDENTIFIER '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' IDENTIFIER ')' '{' Statement '}' '}'
 
