@@ -32,6 +32,7 @@ NL  = \n | \r | \r\n
 "this" { return Parser.THIS; }
 "new" { return Parser.NEW; }
 "int" { return Parser.INT; }
+"bool" { return Parser.BOOL; }
 "extends" { return Parser.EXTENDS; }
 [0-9]+ { return Parser.INTEGER_LITERAL; }
 
