@@ -7,8 +7,8 @@
 
 %right '='
 %nonassoc '<'
-%left  AND
-%left  '-' '+'
+%left AND
+%left '-' '+'
 %left '*'
 %right '!'
 %left '.'
@@ -32,7 +32,11 @@ StatementR : StatementR Statement
           |
           ;
 
-Expression :  Expression '[' Expression ']'
+Expression :  Expression AND Expression
+            | Expression '<' Expression
+            | Expression '-' Expression
+            | Expression '*' Expression
+            | Expression '[' Expression ']'
             | Expression '.' LENGTH
             | TRUE
             | FALSE
