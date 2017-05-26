@@ -32,6 +32,7 @@ NL  = \n | \r | \r\n
 "this" { return Parser.THIS; }
 "new" { return Parser.NEW; }
 "int" { return Parser.INT; }
+[0-9]+ { return Parser.INTEGER_LITERAL; } 
 
 [a-zA-Z][a-zA-Z_0-9]* { return Parser.IDENTIFIER; }
 

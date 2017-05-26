@@ -3,7 +3,7 @@
 %}
 
 %token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING, IF, ELSE, WHILE
-%token PRINT, AND, LENGTH, TRUE, FALSE, THIS, NEW, INT
+%token PRINT, AND, LENGTH, TRUE, FALSE, THIS, NEW, INT, INTEGER_LITERAL
 
 %right '='
 %nonassoc '<'
@@ -38,6 +38,7 @@ Expression :  Expression AND Expression
             | Expression '*' Expression
             | Expression '[' Expression ']'
             | Expression '.' LENGTH
+            | INTEGER_LITERAL
             | TRUE
             | FALSE
             | IDENTIFIER
