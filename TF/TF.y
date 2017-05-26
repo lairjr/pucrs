@@ -38,6 +38,7 @@ Expression :  Expression AND Expression
             | Expression '*' Expression
             | Expression '[' Expression ']'
             | Expression '.' LENGTH
+            | Expression '.' IDENTIFIER '(' ArgumentsR ')'
             | INTEGER_LITERAL
             | TRUE
             | FALSE
@@ -47,6 +48,11 @@ Expression :  Expression AND Expression
             | NEW IDENTIFIER '(' ')'
             | '!' Expression
             | '(' Expression ')'
+            ;
+
+ArgumentsR :  Expression
+            | Expression ',' ArgumentsR
+            |
             ;
 
 %%

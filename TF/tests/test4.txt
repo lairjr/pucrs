@@ -1,1 +1,10 @@
-class Id { public static void main(String [] args) { { b = a < b; b = a - b; b = a * b; b = 22; } } }
+class Id {
+  public static void main(String [] args) {
+    {
+      b = a < b;
+      b = a - b;
+      b = a * b;
+      b = 22;
+    }
+  } 
+}
