@@ -4,7 +4,7 @@
 
 %token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING, IF, ELSE, WHILE
 %token PRINT, AND, LENGTH, TRUE, FALSE, THIS, NEW, INT, INTEGER_LITERAL, EXTENDS
-%token BOOL, RETURN
+%token BOOL, RETURN, LITERAL
 
 %right '='
 %nonassoc '<'
@@ -89,6 +89,7 @@ Expression :  Expression AND Expression
             | NEW IDENTIFIER '(' ')'
             | '!' Expression
             | '(' Expression ')'
+            | LITERAL
             ;
 
 ArgumentsR :  Expression

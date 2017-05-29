@@ -13,13 +13,14 @@
 
 NL  = \n | \r | \r\n
 InputCharacter = [^\r\n]
-WhiteSpace = {NL} | [ \t\f]
 TraditionalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 EndOfLineComment = "//" {InputCharacter}* {NL}?
 CommentContent       = ( [^*] | \*+ [^/*] )*
 DocumentationComment = "/**" {CommentContent} "*"+ "/"
 
 Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
+
+Literal = "\"" {InputCharacter}* "\""
 
 %%
 
@@ -44,6 +45,7 @@ Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 "extends" { return Parser.EXTENDS; }
 [0-9]+ { return Parser.INTEGER_LITERAL; }
 "return" { return Parser.RETURN; }
+{Literal} { return Parser.LITERAL; }
 
 [a-zA-Z][a-zA-Z_0-9]* { return Parser.IDENTIFIER; }
 
