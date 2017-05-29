@@ -11,7 +11,11 @@ class Pessoa {
     return valor;
   }
 
-  public int metodo2() {
+  public bool metodo2() {
+    if (valor)
+      valor = false;
+    else
+      valor = true;
     return valor;
   }
 }

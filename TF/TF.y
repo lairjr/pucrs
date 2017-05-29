@@ -33,7 +33,7 @@ VarDeclarationR : VarDeclaration VarDeclarationR
                 |
                 ;
 
-MethodDeclaration: PUBLIC Type IDENTIFIER '(' ')' '{' RETURN Expression ';' '}'
+MethodDeclaration: PUBLIC Type IDENTIFIER '(' ')' '{' StatementR RETURN Expression ';' '}'
 
 MethodDeclarationR: MethodDeclaration MethodDeclarationR
                   |
