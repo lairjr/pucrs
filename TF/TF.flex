@@ -3,7 +3,7 @@
 %byaccj
 
 %{
-  // Fabiano Affeldt Rocke, Lair Junior, Pedro Henrique Morais Sanvido 
+  // Fabiano Affeldt Rocke, Lair Junior, Pedro Henrique Morais Sanvido
   private Parser yyparser;
 
   public Yylex(java.io.Reader r, Parser yyparser) {
@@ -46,7 +46,7 @@ Literal = "\"" {InputCharacter}* "\""
 "extends" { return Parser.EXTENDS; }
 [0-9]+ { return Parser.INTEGER_LITERAL; }
 "return" { return Parser.RETURN; }
-{Literal} { return Parser.LITERAL; }
+{Literal} { return Parser.STRING_LITERAL; }
 
 [a-zA-Z][a-zA-Z_0-9]* { return Parser.IDENTIFIER; }
 

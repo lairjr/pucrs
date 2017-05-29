@@ -1,11 +1,11 @@
 %{
-  // Fabiano Affeldt Rocke, Lair Junior, Pedro Henrique Morais Sanvido 
+  // Fabiano Affeldt Rocke, Lair Junior, Pedro Henrique Morais Sanvido
   import java.io.*;
 %}
 
 %token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING, IF, ELSE, WHILE
 %token PRINT, AND, LENGTH, TRUE, FALSE, THIS, NEW, INT, INTEGER_LITERAL, EXTENDS
-%token BOOL, RETURN, LITERAL
+%token BOOL, RETURN, STRING_LITERAL
 
 %right '='
 %nonassoc '<'
@@ -90,7 +90,7 @@ Expression :  Expression AND Expression
             | NEW IDENTIFIER '(' ')'
             | '!' Expression
             | '(' Expression ')'
-            | LITERAL
+            | STRING_LITERAL
             ;
 
 ArgumentsR :  Expression
