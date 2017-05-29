@@ -12,6 +12,14 @@
 %}
 
 NL  = \n | \r | \r\n
+InputCharacter = [^\r\n]
+WhiteSpace = {NL} | [ \t\f]
+TraditionalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+EndOfLineComment = "//" {InputCharacter}* {NL}?
+CommentContent       = ( [^*] | \*+ [^/*] )*
+DocumentationComment = "/**" {CommentContent} "*"+ "/"
+
+Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 
 %%
 
@@ -54,6 +62,8 @@ NL  = \n | \r | \r\n
 "-" |
 "," |
 "*" { return (int) yycharat(0); }
+
+{Comment} { }
 
 [ \t]+ { }
 {NL}+  { }
