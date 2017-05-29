@@ -35,6 +35,7 @@ NL  = \n | \r | \r\n
 "bool" { return Parser.BOOL; }
 "extends" { return Parser.EXTENDS; }
 [0-9]+ { return Parser.INTEGER_LITERAL; }
+"return" { return Parser.RETURN; }
 
 [a-zA-Z][a-zA-Z_0-9]* { return Parser.IDENTIFIER; }
 

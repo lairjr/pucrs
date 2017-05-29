@@ -1,0 +1,17 @@
+class Main {
+  public static void main(String [] args) {
+    b = a && b;
+  }
+}
+
+class Pessoa {
+  int atributo;
+
+  public int metodo() {
+    return valor;
+  }
+
+  public int metodo2() {
+    return valor;
+  }
+}

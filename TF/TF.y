@@ -4,7 +4,7 @@
 
 %token CLASS, IDENTIFIER, PUBLIC, STATIC, VOID, MAIN, STRING, IF, ELSE, WHILE
 %token PRINT, AND, LENGTH, TRUE, FALSE, THIS, NEW, INT, INTEGER_LITERAL, EXTENDS
-%token BOOL
+%token BOOL, RETURN
 
 %right '='
 %nonassoc '<'
@@ -33,7 +33,7 @@ VarDeclarationR : VarDeclaration VarDeclarationR
                 |
                 ;
 
-MethodDeclaration: PUBLIC Type IDENTIFIER
+MethodDeclaration: PUBLIC Type IDENTIFIER '(' ')' '{' RETURN Expression ';' '}'
 
 MethodDeclarationR: MethodDeclaration MethodDeclarationR
                   |
