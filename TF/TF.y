@@ -33,11 +33,16 @@ VarDeclarationR : VarDeclaration VarDeclarationR
                 |
                 ;
 
-MethodDeclaration: PUBLIC Type IDENTIFIER '(' Param ')' '{' StatementR RETURN Expression ';' '}'
+MethodDeclaration: PUBLIC Type IDENTIFIER '(' Param ')' '{' VarDeclarationOrStatement RETURN Expression ';' '}'
 
 MethodDeclarationR: MethodDeclaration MethodDeclarationR
                   |
                   ;
+
+VarDeclarationOrStatement: Type IDENTIFIER ';' VarDeclarationOrStatement
+                      | Statement StatementR
+                      |
+                      ;
 
 Param : Type IDENTIFIER ParamR
       |
@@ -69,6 +74,7 @@ StatementR : StatementR Statement
 
 Expression :  Expression AND Expression
             | Expression '<' Expression
+            | Expression '+' Expression
             | Expression '-' Expression
             | Expression '*' Expression
             | Expression '[' Expression ']'

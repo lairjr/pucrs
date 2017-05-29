@@ -7,8 +7,9 @@ class Main {
 class Pessoa {
   int atributo;
 
-  public int metodo(int arg1) {
-    return valor;
+  public int metodo(int arg1, bool isChecked) {
+    int x;
+    return arg1 + x;
   }
 
   public bool metodo2() {
