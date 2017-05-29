@@ -1,9 +1,12 @@
 class Main {
   public static void main(String [] args) {
-    b = a && b; 
+    b = a && b;
   }
 }
 
 class Pessoa {
   int atributo;
+  int[] atributo2;
+  bool atributo3;
+  Pessoa atributo4;
 }

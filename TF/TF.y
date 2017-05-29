@@ -19,8 +19,8 @@
 
 Goal : MainClass ClassDeclarationR;
 
-ClassDeclaration:   CLASS IDENTIFIER EXTENDS IDENTIFIER '{' VarDeclarationR '}'
-                  | CLASS IDENTIFIER '{' VarDeclarationR '}'
+ClassDeclaration:   CLASS IDENTIFIER EXTENDS IDENTIFIER '{' VarDeclarationR MethodDeclarationR '}'
+                  | CLASS IDENTIFIER '{' VarDeclarationR MethodDeclarationR '}'
                   ;
 
 ClassDeclarationR:  ClassDeclaration ClassDeclarationR
@@ -33,7 +33,14 @@ VarDeclarationR : VarDeclaration VarDeclarationR
                 |
                 ;
 
-Type: INT
+MethodDeclaration: PUBLIC Type IDENTIFIER
+
+MethodDeclarationR: MethodDeclaration MethodDeclarationR
+                  |
+                  ;
+
+Type: INT  '[' ']'
+    | INT
     | BOOL
     | IDENTIFIER
     ;
