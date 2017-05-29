@@ -33,11 +33,19 @@ VarDeclarationR : VarDeclaration VarDeclarationR
                 |
                 ;
 
-MethodDeclaration: PUBLIC Type IDENTIFIER '(' ')' '{' StatementR RETURN Expression ';' '}'
+MethodDeclaration: PUBLIC Type IDENTIFIER '(' Param ')' '{' StatementR RETURN Expression ';' '}'
 
 MethodDeclarationR: MethodDeclaration MethodDeclarationR
                   |
                   ;
+
+Param : Type IDENTIFIER ParamR
+      |
+      ;
+
+ParamR: ParamR ',' Type IDENTIFIER
+      |
+      ;
 
 Type: INT  '[' ']'
     | INT

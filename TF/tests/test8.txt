@@ -7,7 +7,7 @@ class Main {
 class Pessoa {
   int atributo;
 
-  public int metodo() {
+  public int metodo(int arg1) {
     return valor;
   }
 
