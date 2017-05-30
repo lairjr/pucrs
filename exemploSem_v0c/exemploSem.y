@@ -35,7 +35,7 @@ decl : type IDENT ';' {  TS_entry nodo = ts.pesquisa($2);
       | type '[' exp ']' IDENT ';' {  TS_entry nodo = ts.pesquisa($5);
                                   if (nodo != null)
                                     yyerror("(sem) variavel >" + $5 + "< jah declarada");
-                                else ts.insert(new TS_entry($5, (TS_entry)$1, currClass));
+                                else ts.insert(new TS_entry($5, Tp_ARRAY, (TS_entry)$1, currClass));
                               }
       ;
               //
@@ -44,7 +44,6 @@ decl : type IDENT ';' {  TS_entry nodo = ts.pesquisa($2);
 type : INT    { $$ = Tp_INT; }
      | DOUBLE  { $$ = Tp_DOUBLE; }
      | BOOL   { $$ = Tp_BOOL; }
-     | type '[' exp ']' IDENT { $$ = Tp_ARRAY; }
      | IDENT  { TS_entry nodo = ts.pesquisa($1);
                 if (nodo == null )
                    yyerror("(sem) Nome de tipo <" + $1 + "> nao declarado ");
@@ -77,7 +76,9 @@ exp : exp '+' exp { $$ = validaTipo('+', (TS_entry)$1, (TS_entry)$3); }
     | '(' exp ')' { $$ = $2; }
     | lvalue   { $$ = $1; }
     | lvalue '=' exp  {  $$ = validaTipo(ATRIB, (TS_entry)$1, (TS_entry)$3);  }
-    | lvalue '=' IDENT '[' exp ']' {  $$ = validaTipo(ATRIB, (TS_entry)$1, ts.pesquisa($3).getTipo());  }
+    | lvalue '=' IDENT '[' exp ']' {
+      $$ = validaTipo(ATRIB, (TS_entry)$1, ts.pesquisa($3).getBase());
+    }
     ;
 
 
@@ -95,7 +96,7 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
                                 $$ = Tp_ERRO;
                                 }
                              else
-                                 $$ = nodo.getTipo();
+                                 $$ = nodo.getBase();
                          }
        | IDENT '.' exp      { $$ = Tp_ERRO; }
 %%
@@ -106,7 +107,7 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
 
   public static TS_entry Tp_INT =  new TS_entry("int", null, ClasseID.TipoBase);
   public static TS_entry Tp_DOUBLE = new TS_entry("double", null,  ClasseID.TipoBase);
-  public static TS_entry Tp_ARRAY = new TS_entry("array", null,  ClasseID.TipoBase);
+  public static TS_entry Tp_ARRAY = new TS_entry("array", null, ClasseID.TipoBase);
   public static TS_entry Tp_BOOL = new TS_entry("bool", null,  ClasseID.TipoBase);
   public static TS_entry Tp_ERRO = new TS_entry("_erro_", null,  ClasseID.TipoBase);
 
@@ -149,6 +150,7 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
     ts.insert(Tp_DOUBLE);
     ts.insert(Tp_BOOL);
     ts.insert(Tp_ARRAY);
+    ts.insert(new TS_entry("true", Tp_BOOL, ClasseID.TipoBase));
   }
 
   public void setDebug(boolean debug) {
