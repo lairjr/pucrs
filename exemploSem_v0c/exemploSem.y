@@ -77,6 +77,7 @@ exp : exp '+' exp { $$ = validaTipo('+', (TS_entry)$1, (TS_entry)$3); }
     | '(' exp ')' { $$ = $2; }
     | lvalue   { $$ = $1; }
     | lvalue '=' exp  {  $$ = validaTipo(ATRIB, (TS_entry)$1, (TS_entry)$3);  }
+    | lvalue '=' IDENT '[' exp ']' {  $$ = validaTipo(ATRIB, (TS_entry)$1, ts.pesquisa($3).getTipo());  }
     ;
 
 
@@ -88,13 +89,13 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
                     else
                         $$ = nodo.getTipo();
                   }
-       | type  '[' exp ']' IDENT { TS_entry nodo = ts.pesquisa($5);
+       | IDENT  '[' exp ']' { TS_entry nodo = ts.pesquisa($1);
                              if (nodo == null) {
                                 yyerror("(sem) var <" + $1 + "> nao declarada");
                                 $$ = Tp_ERRO;
                                 }
                              else
-                                 $$ = Tp_ARRAY;
+                                 $$ = nodo.getTipo();
                          }
        | IDENT '.' exp      { $$ = Tp_ERRO; }
 %%
