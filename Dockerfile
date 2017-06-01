@@ -1,5 +1,3 @@
-FROM java:latest
+FROM lairjr/jflex-byacc-docker
 
-RUN apt-get update
-RUN apt-get install -y jflex byacc-j
 RUN apt-get install -y make
