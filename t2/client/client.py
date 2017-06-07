@@ -1,19 +1,17 @@
 import socket
-
-def send():
-    s.send("a")
-    data = s.recv(1024)
-    print("received from server: " + str(data))
-
-def tips():
-    print("available commands:")
-    print("exit - will exit the game;")
-    print("tips - will print available commands;")
+import commands
 
 commands = {
-    "tips" : tips,
-    "send" : send
+    "tips" : commands.tips,
+    "send" : commands.send
 }
+
+def main_loop():
+    message = raw_input("command: ")
+
+    while message != "exit":
+        commands[message]();
+        message = raw_input("command: ")
 
 def Main():
     host = "server"
@@ -22,11 +20,7 @@ def Main():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect((host,port))
 
-    message = raw_input("command: ")
-
-    while message != "exit":
-        commands[message]();
-        message = raw_input("command: ")
+    main_loop()
 
     s.close()
 
