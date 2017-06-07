@@ -1,6 +1,5 @@
 import socket
-import readline
-#Watch Draps' video liked to above id you have any questions
+
 def Main():
     host = "server"
     port = 5002
