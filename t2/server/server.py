@@ -12,7 +12,7 @@ def Main():
     s.bind((host, port))
     while True:
         print >>sys.stderr, '\nwaiting to receive message'
-        data, receive_address = s.recvfrom(1024)
+        data, received_address = s.recvfrom(1024)
         out_file = open("Client_Data.txt", "w")
         out_string += str(data)
         out_string += "\n"
@@ -21,7 +21,7 @@ def Main():
             break
 
         print(str(data))
-        s.sendto(" Wubalabadubdub!!!!", receive_address)
+        s.sendto(" Wubalabadubdub!!!!", received_address)
     s.close()
 
 if __name__ == '__main__':
