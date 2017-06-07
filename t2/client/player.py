@@ -1,5 +1,5 @@
 import socket_handler
-import protocol
+import common.protocol
 
 player_data = {
     "name": ''
@@ -7,6 +7,8 @@ player_data = {
 
 def initialize():
     global player_data
+
     player_data['name'] = raw_input("Give me your player name: ")
-    message = protocol.encode(protocol.actions()['CREATE_PLAYER'], player_data)
+
+    message = common.protocol.encode(common.protocol.actions()['CREATE_PLAYER'], player_data)
     socket_handler.send(message)

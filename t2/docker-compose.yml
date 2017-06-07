@@ -4,6 +4,7 @@ services:
     build: .
     command: python client.py
     volumes:
+      - ./common:/usr/app/common
       - ./client:/usr/app/
     depends_on:
       - server
@@ -11,6 +12,7 @@ services:
     build: .
     command: python server.py
     volumes:
+      - ./common:/usr/app/common/
       - ./server:/usr/app/
     expose:
       - 5002

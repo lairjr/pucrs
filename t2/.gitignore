@@ -1,2 +1,4 @@
 server/log.txt
+server/common
+client/common
 **/*.pyc
