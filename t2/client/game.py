@@ -17,6 +17,8 @@ def main_loop():
         commands[message]();
         message = raw_input("command: ")
 
+    print("Bye!")
+
 def run(host, port):
     initialize()
 
