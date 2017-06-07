@@ -4,7 +4,7 @@ import readline
 def Main():
     host = "server"
     port = 5002
-    s = socket.socket()
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect((host,port))
     message = raw_input("please put message ")
     while message != "q":
