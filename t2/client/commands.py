@@ -1,6 +1,8 @@
+import socket_handler
+
 def send():
-    s.send("a")
-    data = s.recv(1024)
+    socket_handler.send("a")
+    data = socket_handler.receive()
     print("received from server: " + str(data))
 
 def tips():

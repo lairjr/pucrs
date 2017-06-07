@@ -1,5 +1,5 @@
-import socket
 import commands
+import socket_handler
 
 commands = {
     "tips" : commands.tips,
@@ -17,12 +17,11 @@ def Main():
     host = "server"
     port = 5002
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect((host,port))
+    socket_handler.initialize(host, port)
 
     main_loop()
 
-    s.close()
+    socket_handler.close()
 
 if __name__ == '__main__':
     Main()
