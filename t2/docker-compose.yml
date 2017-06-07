@@ -1,0 +1,16 @@
+version: '3'
+services:
+  client:
+    build: .
+    command: python client.py
+    volumes:
+      - ./client.py:/usr/app/client.py
+    depends_on:
+      - server
+  server:
+    build: .
+    command: python server.py
+    volumes:
+      - ./server.py:/usr/app/server.py
+    expose:
+      - 5002
