@@ -1,7 +1,14 @@
 import common.socket_handler
+import common.protocol
+import commands
 import log_handler
 
+
 handler = common.socket_handler.SocketHandler.get_instance()
+
+commands = {
+    common.protocol.actions()['CREATE_PLAYER']: commands.create_player
+}
 
 def initialize():
     log_handler.clear()
@@ -21,8 +28,8 @@ def main_loop():
         if not message:
             break
 
-        print(str(message))
-        handler.sendto(" Wubalabadubdub!!!!", received_address)
+        command, data = common.protocol.decode(message)
+        commands[command](data)
     handler.close()
 
 def run():
