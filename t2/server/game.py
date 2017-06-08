@@ -4,7 +4,7 @@ import commands
 import log_handler
 
 
-handler = common.socket_handler.SocketHandler.get_instance()
+SocketHandler = common.socket_handler.SocketHandler.get_instance()
 
 commands = {
     common.protocol.SERVER_EVENT['CREATE_PLAYER']: commands.create_player
@@ -15,14 +15,14 @@ def initialize():
 
     port = 5002
 
-    handler.connect('', port)
+    SocketHandler.connect('', port)
 
     print("Welcome to the server!")
 
 def main_loop():
     while True:
         print("Waiting to receive commands...")
-        message, received_address = handler.receivefrom()
+        message, received_address = SocketHandler.receivefrom()
 
         log_handler.log(message)
         if not message:
@@ -30,7 +30,7 @@ def main_loop():
 
         command, data = common.protocol.decode(message)
         commands[command](data)
-    handler.close()
+    SocketHandler.close()
 
 def run():
     initialize()

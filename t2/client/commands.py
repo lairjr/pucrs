@@ -1,10 +1,10 @@
 import common.socket_handler
 
-handler = common.socket_handler.SocketHandler.get_instance()
+SocketHandler = common.socket_handler.SocketHandler.get_instance()
 
 def send():
-    handler.sendto("a", ("172.18.0.2", 5002))
-    data = handler.receivefrom()
+    SocketHandler.sendto("a", ("172.18.0.2", 5002))
+    data = SocketHandler.receivefrom()
     print("received from server: " + str(data))
 
 def tips():
