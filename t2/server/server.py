@@ -1,8 +1,8 @@
-import common2.socket_handler
+import common.socket_handler
 import sys
 import log_handler
 
-handler = common2.socket_handler.SocketHandler.get_instance()
+handler = common.socket_handler.SocketHandler.get_instance()
 
 def Main():
     log_handler.clear()

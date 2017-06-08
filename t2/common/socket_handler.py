@@ -19,7 +19,7 @@ class SocketHandler:
         if (host == ''):
             host = socket.gethostname()
 
-        self.s.connect((host,port))
+        self.s.bind((host, port))
         print("Connected to: " + str(self.s.getsockname()))
 
     def send(self, message):
