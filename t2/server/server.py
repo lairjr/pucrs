@@ -1,26 +1,27 @@
-import socket
+import common2.socket_handler
 import sys
 import log_handler
+
+handler = common2.socket_handler.SocketHandler.get_instance()
 
 def Main():
     log_handler.clear()
 
-    host = socket.gethostname()
     port = 5002
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.bind((host, port))
+
+    handler.connect('', port)
 
     while True:
-        print >> sys.stderr, '\nwaiting to receive messages'
-        message, received_address = s.recvfrom(1024)
+        print("waiting to receive messages")
+        message, received_address = handler.receivefrom()
 
         log_handler.log(message)
         if not message:
             break
 
         print(str(message))
-        s.sendto(" Wubalabadubdub!!!!", received_address)
-    s.close()
+        handler.sendto(" Wubalabadubdub!!!!", received_address)
+    handler.close()
 
 if __name__ == '__main__':
         Main()

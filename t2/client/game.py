@@ -19,7 +19,7 @@ def main_loop():
 
     print("Bye!")
 
-def run(host, port):
+def run():
     initialize()
 
     main_loop()
