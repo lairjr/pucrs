@@ -7,7 +7,7 @@ import log_handler
 handler = common.socket_handler.SocketHandler.get_instance()
 
 commands = {
-    common.protocol.actions()['CREATE_PLAYER']: commands.create_player
+    common.protocol.SERVER_EVENT['CREATE_PLAYER']: commands.create_player
 }
 
 def initialize():

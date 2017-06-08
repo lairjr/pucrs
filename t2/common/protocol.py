@@ -1,11 +1,12 @@
 import ast
 
-ACTIONS = {
+SERVER_EVENT = {
     'CREATE_PLAYER': 1
 }
 
-def actions():
-    return ACTIONS
+CLIENT_EVENT = {
+    'CREATE_PLAYER': 1
+}
 
 def encode(action, data):
     data['command'] = action;
@@ -13,7 +14,7 @@ def encode(action, data):
 
 def decode(message):
     data = ast.literal_eval(message)
-    
+
     command = data['command'];
     data.pop('command', None)
 
