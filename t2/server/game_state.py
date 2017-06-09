@@ -1,6 +1,7 @@
 class GameState:
     instance = None
     players = []
+    # MAP 30 x 10
     map = [
         [ "+", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "+" ],
         [ "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|" ],
@@ -34,5 +35,17 @@ class GameState:
             return next((player for player in self.players if player["name"] == player_name), None)
         return None
 
+    def add_player(self, player_data):
+        (pos_x, pos_y) = self.get_middle_map()
+        player_data['pos_x'] = pos_x
+        player_data['pos_y'] = pos_y
+        self.map[pos_y][pos_x] = 'o'
+        self.players.append(player_data)
+
+        return player_data
+
     def print_map_state(self):
         print("\n".join(["".join([item for item in row]) for row in self.map]))
+
+    def get_middle_map(self):
+        return (15, 5)

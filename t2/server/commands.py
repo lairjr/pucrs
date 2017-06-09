@@ -9,10 +9,8 @@ def create_player(received_address, player_data):
     message = None
 
     if GameState.get_player(player_data['name']) is None:
-        player_data['pos_x'] = 1
-        player_data['pos_y'] = 1
-        GameState.get_players().append(player_data)
-        message = common.protocol.encode(common.protocol.RESPONSE_EVENT['OK'], None)
+        player_data = GameState.add_player(player_data)
+        message = common.protocol.encode(common.protocol.RESPONSE_EVENT['OK'], player_data)
     else:
         message = common.protocol.encode(common.protocol.RESPONSE_EVENT['ERROR'], None)
 
