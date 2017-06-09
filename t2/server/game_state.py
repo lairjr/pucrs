@@ -14,3 +14,8 @@ class GameState:
 
     def get_players(self):
         return self.players
+
+    def get_player(self, player_name):
+        if len(self.players) > 0:
+            return next((player for player in self.players if player["name"] == player_name), None)
+        return None
