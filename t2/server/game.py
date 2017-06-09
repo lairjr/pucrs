@@ -29,7 +29,7 @@ def main_loop():
             break
 
         command, data = common.protocol.decode(message)
-        commands[command](data)
+        commands[command](received_address, data)
     SocketHandler.close()
 
 def run():

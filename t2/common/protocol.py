@@ -5,10 +5,13 @@ GAME_EVENT = {
 }
 
 RESPONSE_EVENT = {
-    'OK': 200
+    'OK': 200,
+    'ERROR': 400
 }
 
 def encode(action, data):
+    if data is None:
+        data = {}
     data['command'] = action;
     return str(data)
 

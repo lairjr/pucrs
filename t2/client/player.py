@@ -14,3 +14,9 @@ def initialize():
 
     message = common.protocol.encode(common.protocol.GAME_EVENT['CREATE_PLAYER'], player_data)
     SocketHandler.sendto(message, ("172.18.0.2", 5002))
+
+    response, received_address = SocketHandler.receivefrom()
+    (response_event, data) = common.protocol.decode(response)
+    if response_event is not common.protocol.RESPONSE_EVENT['OK']:
+        print("Erro ao criar jogador, tente novamente")
+        initialize()
