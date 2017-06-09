@@ -2,8 +2,9 @@ import common.socket_handler
 import common.protocol
 import commands
 import log_handler
+import game_state
 
-
+GameState = game_state.GameState.get_instance()
 SocketHandler = common.socket_handler.SocketHandler.get_instance()
 
 commands = {
@@ -21,7 +22,7 @@ def initialize():
 
 def main_loop():
     while True:
-        print("Waiting to receive commands...")
+        GameState.print_map_state()
         message, received_address = SocketHandler.receivefrom()
 
         log_handler.log(message)
