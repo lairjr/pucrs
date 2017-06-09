@@ -15,3 +15,11 @@ def create_player(received_address, player_data):
         message = common.protocol.encode(common.protocol.RESPONSE_EVENT['ERROR'], None)
 
     SocketHandler.sendto(message, received_address)
+
+def move_player(received_address, player_data):
+    message = None
+
+    player_data = GameState.update_players_state(player_data)
+    message = common.protocol.encode(common.protocol.RESPONSE_EVENT['OK'], player_data)
+
+    SocketHandler.sendto(message, received_address)

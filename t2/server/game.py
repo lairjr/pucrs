@@ -7,8 +7,9 @@ import game_state
 GameState = game_state.GameState.get_instance()
 SocketHandler = common.socket_handler.SocketHandler.get_instance()
 
-commands = {
-    common.protocol.GAME_EVENT['CREATE_PLAYER']: commands.create_player
+commands_handler = {
+    common.protocol.GAME_EVENT['CREATE_PLAYER']: commands.create_player,
+    common.protocol.GAME_EVENT['MOVE_PLAYER']: commands.move_player
 }
 
 def initialize():
@@ -30,7 +31,7 @@ def main_loop():
             break
 
         command, data = common.protocol.decode(message)
-        commands[command](received_address, data)
+        commands_handler[command](received_address, data)
     SocketHandler.close()
 
 def run():

@@ -1,3 +1,5 @@
+from functools import partial
+
 class GameState:
     instance = None
     players = []
@@ -39,9 +41,18 @@ class GameState:
         (pos_x, pos_y) = self.get_middle_map()
         player_data['pos_x'] = pos_x
         player_data['pos_y'] = pos_y
-        self.map[pos_y][pos_x] = 'o'
         self.players.append(player_data)
+        self.update_map()
 
+        return player_data
+
+    def update_players_state(self, player_data):
+        for index, player in enumerate(self.players):
+            if player['name'] == player_data['name']:
+                self.map[player['pos_y']][player['pos_x']] = ' '
+                self.players[index] = player_data
+
+        self.update_map()
         return player_data
 
     def print_map_state(self):
@@ -49,3 +60,7 @@ class GameState:
 
     def get_middle_map(self):
         return (15, 5)
+
+    def update_map(self):
+        for player in self.players:
+            self.map[player['pos_y']][player['pos_x']] = 'o'
