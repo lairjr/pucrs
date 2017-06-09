@@ -1,5 +1,7 @@
 import commands
-import player
+import player_state
+
+PlayerState = player_state.PlayerState.get_instance()
 
 commands = {
     "tips" : commands.tips,
@@ -8,7 +10,7 @@ commands = {
 
 def initialize():
     print("Welcome to the game!")
-    player.initialize()
+    PlayerState.initialize()
 
 def main_loop():
     message = raw_input("command: ")
