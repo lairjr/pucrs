@@ -18,3 +18,15 @@ class PlayerState:
 
     def update_data(self, new_data):
         self.player_data = new_data
+
+    def move(self, direction):
+        if direction is 'w':
+            self.player_data['pos_y'] += 1
+        if direction is 'd':
+            self.player_data['pos_x'] += 1
+        if direction is 's':
+            self.player_data['pos_y'] += -1
+        if direction is 'a':
+            self.player_data['pos_x'] += -1
+
+        return self.player_data
