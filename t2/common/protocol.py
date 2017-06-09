@@ -1,11 +1,11 @@
 import ast
 
-SERVER_EVENT = {
+GAME_EVENT = {
     'CREATE_PLAYER': 1
 }
 
-CLIENT_EVENT = {
-    'CREATE_PLAYER': 1
+RESPONSE_EVENT = {
+    'OK': 200
 }
 
 def encode(action, data):

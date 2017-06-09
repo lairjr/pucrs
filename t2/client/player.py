@@ -12,5 +12,5 @@ def initialize():
 
     player_data['name'] = raw_input("Give me your player name: ")
 
-    message = common.protocol.encode(common.protocol.SERVER_EVENT['CREATE_PLAYER'], player_data)
+    message = common.protocol.encode(common.protocol.GAME_EVENT['CREATE_PLAYER'], player_data)
     SocketHandler.sendto(message, ("172.18.0.2", 5002))
