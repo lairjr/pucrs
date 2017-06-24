@@ -9,7 +9,8 @@ SocketHandler = common.socket_handler.SocketHandler.get_instance()
 
 commands_handler = {
     common.protocol.GAME_EVENT['CREATE_PLAYER']: commands.create_player,
-    common.protocol.GAME_EVENT['MOVE_PLAYER']: commands.move_player
+    common.protocol.GAME_EVENT['MOVE_PLAYER']: commands.move_player,
+    common.protocol.GAME_EVENT['LIST_OBJECTS']: commands.list_objects
 }
 
 def initialize():

@@ -2,7 +2,8 @@ import ast
 
 GAME_EVENT = {
     'CREATE_PLAYER': 1,
-    'MOVE_PLAYER': 2
+    'MOVE_PLAYER': 2,
+    'LIST_OBJECTS': 3
 }
 
 RESPONSE_EVENT = {

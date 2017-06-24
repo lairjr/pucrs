@@ -3,6 +3,11 @@ from functools import partial
 class GameState:
     instance = None
     players = []
+    objects = [
+        { "name": "mapa", "can_pick": "true" },
+        { "name": "porta", "can_pick": "false" }
+    ]
+
     # MAP 30 x 10
     map = [
         [ "+", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "+" ],
@@ -64,3 +69,6 @@ class GameState:
     def update_map(self):
         for player in self.players:
             self.map[player['pos_y']][player['pos_x']] = 'o'
+
+    def get_objects(self):
+        return self.objects
