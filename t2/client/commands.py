@@ -18,6 +18,17 @@ def player_initialize():
         player_initialize()
     PlayerState.update_data(data)
 
+def list_objects():
+    message = common.protocol.encode(common.protocol.GAME_EVENT['LIST_OBJECTS'], {})
+    SocketHandler.sendto(message, ("172.18.0.2", 5002))
+    response, received_address = SocketHandler.receivefrom()
+    (response_event, data) = common.protocol.decode(response)
+    if response_event is not common.protocol.RESPONSE_EVENT['OK']:
+        print("Erro ao listar objetos")
+    print("Lista objetos:")
+    for obj in data["objects"]:
+        print(obj["name"])
+
 def move():
     direction = raw_input("(w, s, a ,d): ")
     player_data = PlayerState.move(direction)

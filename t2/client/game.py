@@ -5,7 +5,8 @@ PlayerState = player_state.PlayerState.get_instance()
 
 commands_handler = {
     "tips" : commands.tips,
-    "move" : commands.move
+    "move" : commands.move,
+    "list objects" : commands.list_objects
 }
 
 def initialize():
