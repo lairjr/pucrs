@@ -25,7 +25,7 @@ def list_objects():
     (response_event, data) = common.protocol.decode(response)
     if response_event is not common.protocol.RESPONSE_EVENT['OK']:
         print("Erro ao listar objetos")
-    print("Lista objetos:")
+    print("Object list:")
     for obj in data["objects"]:
         print(obj["name"])
 
@@ -44,5 +44,6 @@ def move():
 def tips():
     print("available commands:")
     print("exit - will exit the game;")
+    print("list objects - will list all the objects in the room;")
     print("move - will move player in the map;")
     print("tips - will print available commands;")
