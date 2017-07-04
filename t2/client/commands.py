@@ -10,7 +10,7 @@ def player_initialize():
     player_data = PlayerState.initialize(player_name)
 
     message = common.protocol.encode(common.protocol.GAME_EVENT['CREATE_PLAYER'], player_data)
-    SocketHandler.sendto(message, ("172.18.0.2", 5002))
+    SocketHandler.sendto(message, ("172.19.0.2", 5002))
     response, received_address = SocketHandler.receivefrom()
     (response_event, data) = common.protocol.decode(response)
     if response_event is not common.protocol.RESPONSE_EVENT['OK']:
@@ -20,7 +20,7 @@ def player_initialize():
 
 def list_objects():
     message = common.protocol.encode(common.protocol.GAME_EVENT['LIST_OBJECTS'], {})
-    SocketHandler.sendto(message, ("172.18.0.2", 5002))
+    SocketHandler.sendto(message, ("172.19.0.2", 5002))
     response, received_address = SocketHandler.receivefrom()
     (response_event, data) = common.protocol.decode(response)
     if response_event is not common.protocol.RESPONSE_EVENT['OK']:
@@ -34,7 +34,7 @@ def move():
     player_data = PlayerState.move(direction)
 
     message = common.protocol.encode(common.protocol.GAME_EVENT['MOVE_PLAYER'], player_data)
-    SocketHandler.sendto(message, ("172.18.0.2", 5002))
+    SocketHandler.sendto(message, ("172.19.0.2", 5002))
     response, received_address = SocketHandler.receivefrom()
     (response_event, data) = common.protocol.decode(response)
     if response_event is not common.protocol.RESPONSE_EVENT['OK']:
