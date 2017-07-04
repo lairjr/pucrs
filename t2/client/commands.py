@@ -3,7 +3,7 @@ import player_state
 import common.protocol
 
 PlayerState = player_state.PlayerState.get_instance()
-SocketHandler = common.socket_handler.SocketHandler.get_instance()
+SocketHandler = common.socket_handler.SocketHandler.get_instance(5002, 5001)
 
 def player_initialize():
     player_name = raw_input("Give me your player name: ")

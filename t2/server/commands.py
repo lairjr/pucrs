@@ -2,7 +2,7 @@ import game_state
 import common.socket_handler
 import common.protocol
 
-SocketHandler = common.socket_handler.SocketHandler.get_instance()
+SocketHandler = common.socket_handler.SocketHandler.get_instance(5001, 5002)
 GameState = game_state.GameState.get_instance()
 
 def create_player(received_address, player_data):

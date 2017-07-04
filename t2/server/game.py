@@ -5,7 +5,7 @@ import log_handler
 import game_state
 
 GameState = game_state.GameState.get_instance()
-SocketHandler = common.socket_handler.SocketHandler.get_instance()
+SocketHandler = common.socket_handler.SocketHandler.get_instance(5001, 5002)
 
 commands_handler = {
     common.protocol.GAME_EVENT['CREATE_PLAYER']: commands.create_player,
