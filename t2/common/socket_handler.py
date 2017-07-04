@@ -22,9 +22,6 @@ class SocketHandler:
         self.s.bind((host, port))
         print("Bind to: " + str(self.s.getsockname()))
 
-    def send(self, message):
-        self.s.send(message)
-
     def sendto(self, message, destination):
         print("Sent to: " + str(destination))
         self.s.sendto(message, destination)

@@ -25,7 +25,7 @@ def list_objects():
     (response_event, data) = common.protocol.decode(response)
     if response_event is not common.protocol.RESPONSE_EVENT['OK']:
         print("Erro ao listar objetos")
-    print("Object list:")
+    print("Lista objetos:")
     for obj in data["objects"]:
         print(obj["name"])
 
