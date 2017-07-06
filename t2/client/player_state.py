@@ -1,6 +1,7 @@
 class PlayerState:
     player_data = {}
     instance = None
+    server_ip = None
 
     def __init__(self):
         if self.instance is not None:
@@ -30,3 +31,6 @@ class PlayerState:
             self.player_data['pos_x'] += -1
 
         return self.player_data
+
+    def set_server_ip(self, server_ip):
+        self.server_ip = server_ip

@@ -10,6 +10,8 @@ commands_handler = {
 }
 
 def initialize():
+    server_ip = raw_input("Inform the server ip: ")
+    PlayerState.set_server_ip(server_ip)
     print("Welcome to the game!")
     commands.player_initialize()
 
