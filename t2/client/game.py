@@ -19,7 +19,10 @@ def main_loop():
     message = raw_input("command: ")
 
     while message != "exit":
-        commands_handler[message]();
+        if message in commands_handler:
+            commands_handler[message]();
+        else:
+            print(":/ command not found")
         message = raw_input("command: ")
 
     print("Bye!")
